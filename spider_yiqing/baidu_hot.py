@@ -17,7 +17,7 @@ def get_baidu_hot():
     option.add_argument("--headless") # 加快爬取数据，不需要打开浏览器
     option.add_argument("--no-sandbox") # 部署linux
 
-    browser = Chrome(r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe", options=option)
+    browser = Chrome(r"C:\Program Files\Google\Chrome\Application\chromedriver.exe", options=option)
     browser.get(baidu_hot)
     print(browser)
 
