@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
-
 """==============================
-@author: 
+@author:
 @file: baidu_hot.py
 @date: 2020-07-01
 @time: 20:56:00
@@ -11,12 +10,13 @@ import time
 import yiiqing_data
 import traceback
 
+
 def get_baidu_hot():
     baidu_hot = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab1"
 
-    option = ChromeOptions() # 创建谷歌浏览器示例
-    option.add_argument("--headless") # 加快爬取数据，不需要打开浏览器
-    option.add_argument("--no-sandbox") # 部署linux
+    option = ChromeOptions()  # 创建谷歌浏览器示例
+    option.add_argument("--headless")  # 加快爬取数据，不需要打开浏览器
+    option.add_argument("--no-sandbox")  # 部署linux
 
     browser = Chrome(r"C:\Program Files\Google\Chrome\Application\chromedriver.exe", options=option)
     browser.get(baidu_hot)
@@ -29,16 +29,16 @@ def get_baidu_hot():
     list = []
     for i in range(1, 21):
         c = browser.find_elements_by_xpath('//*[@id="ptab-1"]/div[3]/div/div[2]/a/div'.format(i))
-
         list.append(c)
 
     list1 = []
     for i in range(1, 21):
-        for j in list[i-1]:
+        for j in list[i - 1]:
             context = j.text
             list1.append(context)
-            print(list1)
+
     return list1
+
 
 def update_hotsearch():
     cursor = None
@@ -47,7 +47,7 @@ def update_hotsearch():
         context = get_baidu_hot()
         print(f"{time.asctime()}开始更新热搜数据")
         conn, cursor = yiiqing_data.get_conn()
-        sql = "insert into hotsearch(dt,content) values(%s,%s)"
+        sql = "insert into jinri_hot(dt,content) values(%s,%s)"
 
         ts = time.strftime("%Y-%m-%d %X")
         for i in context:
@@ -62,4 +62,4 @@ def update_hotsearch():
 
 if __name__ == '__main__':
     get_baidu_hot()
-    # update_hotsearch()
+    update_hotsearch()

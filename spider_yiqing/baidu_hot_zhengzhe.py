@@ -1,5 +1,5 @@
 """==============================
-@author: 
+@author:
 @file: baidu_hot.py
 @date: 2020-07-01
 @time: 20:56:00
@@ -12,22 +12,24 @@ import traceback
 def get_baidu_hot():
     baidu_hot = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab1"
 
-    option = ChromeOptions()  # 创建谷歌浏览器示例
-    option.add_argument("--headless")  # 加快爬取数据，不需要打开浏览器
-    option.add_argument("--no-sandbox")  # 部署linux
+    option = ChromeOptions() # 创建谷歌浏览器示例
+    option.add_argument("--headless") # 加快爬取数据，不需要打开浏览器
+    option.add_argument("--no-sandbox") # 部署linux
 
     browser = Chrome(r"C:\Program Files\Google\Chrome\Application\chromedriver.exe", options=option)
     browser.get(baidu_hot)
 
-    dl = browser.find_element_by_css_selector('#ptab-1 > div.Virus_1-1-306_2SKAfr > div.Common_1-1-306_3lDRV2 > span')
+    dl = browser.find_element_by_xpath('//*[@id="ptab-0"]/div/div[1]/section/div')
     dl.click()
     time.sleep(1)
     # 找到读热标签
-    source = browser.find_elements_by_class_name("Virus_1-1-306_2SKAfr")
+    source = browser.find_elements_by_class_name("VirusHot_1-5-6_24HB43")
     list = []
     for i in source:
         list.append(i.text)
+
     return list
+
 
 
 def update_hotsearch():
@@ -44,7 +46,7 @@ def update_hotsearch():
         for i in context:
             if context.index(i) < 20:
                 cursor.execute(sql_jinri, (ts, i))
-            elif 20 <= context.index(i) < 28:
+            elif  20 <= context.index(i) < 28:
                 cursor.execute(sql_fugong, (ts, i))
 
         conn.commit()
