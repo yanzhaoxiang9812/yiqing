@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+
 """==============================
 @author: 
 @file: baidu_hot.py
@@ -11,7 +12,7 @@ import yiiqing_data
 import traceback
 
 def get_baidu_hot():
-    baidu_hot = "https://voice.baidu.com/act/virussearch/virussearch?from=osari_map&tab=0&infomore=1"
+    baidu_hot = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_3#tab1"
 
     option = ChromeOptions() # 创建谷歌浏览器示例
     option.add_argument("--headless") # 加快爬取数据，不需要打开浏览器
@@ -21,13 +22,14 @@ def get_baidu_hot():
     browser.get(baidu_hot)
     print(browser)
 
-    dl = browser.find_element_by_xpath('//*[@id="ptab-0"]/div/div[1]/section/div')
+    dl = browser.find_element_by_css_selector('#ptab-1 > div.Virus_1-1-306_2SKAfr > div.Common_1-1-306_3lDRV2 > span')
     dl.click()
     time.sleep(1)
     # 找到读热标签
     list = []
     for i in range(1, 21):
-        c = browser.find_elements_by_xpath('//*[@id="ptab-0"]/div/div[1]/section/a[{}]/div/span[2]'.format(i))
+        c = browser.find_elements_by_xpath('//*[@id="ptab-1"]/div[3]/div/div[2]/a/div'.format(i))
+
         list.append(c)
 
     list1 = []
@@ -35,7 +37,7 @@ def get_baidu_hot():
         for j in list[i-1]:
             context = j.text
             list1.append(context)
-
+            print(list1)
     return list1
 
 def update_hotsearch():
