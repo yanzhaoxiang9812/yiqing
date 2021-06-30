@@ -14,7 +14,7 @@ def hello_world():
 
 
 @app.route('/login')
-def login():
+def login():        
     return render_template("index.html")
 
 
@@ -89,7 +89,7 @@ def get_r2_data():
         ks = extract_tags(k)  # 使用结巴提取关键字
         for j in ks:
             if not j.isdigit():
-                d.append({"name": j, "value": v})
+                d.append({"name": j, "value": len(v)})
 
     return jsonify({"kws": d})
 

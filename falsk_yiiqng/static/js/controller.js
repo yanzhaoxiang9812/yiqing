@@ -84,6 +84,7 @@ function get_r1_data() {
     })
 }
 
+
 function get_r2_data() {
     $.ajax({
         url: "/r2",
